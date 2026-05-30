@@ -60,7 +60,13 @@ while True:
         (0, 255, 0),
         2
     )
-
+    cv2.line(
+    frame,
+    (1200, 0),
+    (1200, 1080),
+    (0, 0, 255),
+    3
+)
     cv2.imshow("Detection", frame)
 
     if cv2.waitKey(1) & 0xFF == ord("q"):

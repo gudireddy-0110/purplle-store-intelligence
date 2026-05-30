@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from app.pos_metrics import get_pos_metrics
 from app.metrics import get_store_metrics
 from app.models import Event
 from app.database import init_db, get_connection
@@ -66,3 +67,6 @@ def get_events():
 @app.get("/stores/{store_id}/metrics")
 def metrics(store_id: str):
     return get_store_metrics(store_id)
+@app.get("/pos-metrics")
+def pos_metrics():
+    return get_pos_metrics()

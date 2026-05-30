@@ -5,21 +5,21 @@ def get_store_metrics(store_id):
     cursor = conn.cursor()
 
     cursor.execute(
-        "SELECT COUNT(DISTINCT visitor_id) FROM events WHERE store_id=?",
+        "SELECT COUNT(DISTINCT visitor_id) FROM events WHERE store_id=? AND is_staff=0",
         (store_id,)
     )
-    visitors = cursor.fetchone()[0]
+    unique_visitors = cursor.fetchone()[0] or 0
 
     cursor.execute(
-        "SELECT AVG(dwell_ms) FROM events WHERE store_id=?",
+        "SELECT AVG(dwell_ms) FROM events WHERE store_id=? AND is_staff=0",
         (store_id,)
     )
-    avg_dwell = cursor.fetchone()[0]
+    avg_dwell = cursor.fetchone()[0] or 0
 
     conn.close()
 
     return {
         "store_id": store_id,
-        "unique_visitors": visitors,
-        "avg_dwell_ms": avg_dwell or 0
+        "unique_visitors": unique_visitors,
+        "avg_dwell_ms": round(avg_dwell, 2)
     }
