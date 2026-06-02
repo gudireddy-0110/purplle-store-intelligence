@@ -21,11 +21,10 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
 
 from app.models   import Event
-from app.database import init_db, get_connection
+from app.database import init_db, get_connection, load_pos_csv
 from app.metrics  import get_store_metrics
 from app.funnel   import get_funnel
 from app.anomalies import get_anomalies
-from app.database import init_db, load_pos_csv
 
 
 
