@@ -3,7 +3,6 @@ FROM python:3.11-slim
 WORKDIR /app
 
 RUN apt-get update && apt-get install -y \
-    libgl1 \
     libglib2.0-0 \
     curl \
     wget \
@@ -11,18 +10,18 @@ RUN apt-get update && apt-get install -y \
 
 COPY requirements.txt .
 
-# Download torch wheel with wget (supports resume on connection drop)
-# --tries=0 = unlimited retries, -c = resume partial download
 RUN wget --tries=0 --retry-connrefused --timeout=60 -c \
     "https://download.pytorch.org/whl/cpu/torch-2.3.1%2Bcpu-cp311-cp311-linux_x86_64.whl" \
-    -O /tmp/torch.whl && \
+    -O /tmp/torch-2.3.1+cpu-cp311-cp311-linux_x86_64.whl && \
     wget --tries=0 --retry-connrefused --timeout=60 -c \
     "https://download.pytorch.org/whl/cpu/torchvision-0.18.1%2Bcpu-cp311-cp311-linux_x86_64.whl" \
-    -O /tmp/torchvision.whl && \
-    pip install --no-cache-dir /tmp/torch.whl /tmp/torchvision.whl && \
-    rm /tmp/torch.whl /tmp/torchvision.whl
+    -O /tmp/torchvision-0.18.1+cpu-cp311-cp311-linux_x86_64.whl && \
+    pip install --no-cache-dir \
+    /tmp/torch-2.3.1+cpu-cp311-cp311-linux_x86_64.whl \
+    /tmp/torchvision-0.18.1+cpu-cp311-cp311-linux_x86_64.whl && \
+    rm /tmp/torch-2.3.1+cpu-cp311-cp311-linux_x86_64.whl \
+       /tmp/torchvision-0.18.1+cpu-cp311-cp311-linux_x86_64.whl
 
-# Install everything else
 RUN pip install --no-cache-dir --timeout=300 --retries=10 \
     fastapi==0.111.0 \
     uvicorn==0.30.1 \
