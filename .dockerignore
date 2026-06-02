@@ -1,0 +1,9 @@
+data/videos/
+data/events/
+venv/
+__pycache__/
+*.pyc
+.git/
+*.mp4
+*.avi
+*.zip
