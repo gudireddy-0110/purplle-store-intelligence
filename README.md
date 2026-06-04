@@ -80,7 +80,7 @@ bash pipeline/run.sh
 # Or process a single clip manually
 python -m pipeline.detect \
   --video   data/videos/CAM_ENTRY.mp4 \
-  --store   STORE_BLR_002 \
+  --store   ST1008 \
   --camera  CAM_ENTRY_01 \
   --output  data/events/events.jsonl
 ```
